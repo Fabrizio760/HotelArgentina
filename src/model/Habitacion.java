@@ -7,6 +7,8 @@ public class Habitacion {
 	private TipoHabitacion tamanio; //Enum TipoHbaitacion 
 	private int cantidadHuespedes; 
 	private Amenities amenities; //Enum Amenities
+	private boolean disponibilidad;
+	private double precio; 
 	
 	//Setters y Getters 
 	public int getIdHabitacion() {
@@ -39,13 +41,22 @@ public class Habitacion {
 	public void setAmenities(Amenities amenities) {
 		this.amenities = amenities;
 	}
-	
-	@Override
-	public String toString() {
-		return "Habitacion [idHabitacion=" + idHabitacion + ", numero=" + numero + ", tamanio=" + tamanio
-				+ ", cantidadHuespedes=" + cantidadHuespedes + ", amenities=" + amenities + "]";
+	public boolean isDisponibilidad() {
+		return disponibilidad;
+	}
+	public void setDisponibilidad(boolean disponibilidad) {
+		this.disponibilidad = disponibilidad;
 	}
 	
 	
+	public double getPrecio() {
+		return precio;
+	}
+	public void setPrecio(double precio) {
+		this.precio = precio;
+	}
+
+	
+
 	
 }

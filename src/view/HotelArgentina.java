@@ -1,7 +1,6 @@
 package view;
 
-import java.text.SimpleDateFormat;
-
+import model.LeerArchivo;
 import model.Reserva;
 
 public class HotelArgentina {
@@ -13,6 +12,11 @@ public class HotelArgentina {
 		System.out.println(calculoEstadia.calculoPaquete(6, 100, 4));//Paquete Bronce
 		System.out.println(calculoEstadia.calculoPaquete(10, 10000, 4));//Paquete Oro 
 		System.out.println(calculoEstadia.calculoPaquete(12, 7500, 4));//Paquete Oro 
+	
+		LeerArchivo leer = new LeerArchivo();
+		leer.leerReservas();
+	
+	
 	}
 
 }
