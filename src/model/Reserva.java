@@ -14,7 +14,7 @@ public class Reserva {
 	private int cantidadHuespedes; 
 	private String fechaEntrada; 
 	private String fechaSalida; 
-	private Date estadia;
+	private int estadia;
 	private Amenities amenities; 
 	private double pagoAbonado;
 	
@@ -32,8 +32,9 @@ public class Reserva {
 		this.cantidadHuespedes=cantidadHuespedes; 
 		this.fechaEntrada = checkIn; 
 		this.fechaSalida = checkOut;
-		//amenities= this.amenities.values();
+		this.amenities= Common.asignarAmenities(amenities);
 	    this.pagoAbonado= pagoAbonado;
+	    this.estadia= calculoEstadia(checkIn, checkOut);
 		
 	}
 
@@ -79,15 +80,17 @@ public class Reserva {
 	public void setPagoAbonado(double pagoAbonado) {
 		this.pagoAbonado = pagoAbonado;
 	}
-	public Date getEstadia() {
+	public int getEstadia() {
 		return estadia;
 	}
-	public void setEstadia(Date estadia) {
+	public void setEstadia(int estadia) {
 		this.estadia = estadia;
 	} 
 	
+		
 	
-	public long calculoEstadia(String fechaEntrada , String fechaSalida) {
+	
+	public int calculoEstadia(String fechaEntrada , String fechaSalida) {
 			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 	        long diff=0;
 			try {
@@ -103,14 +106,14 @@ public class Reserva {
 	        TimeUnit time = TimeUnit.DAYS; 
 	        long diffrence = time.convert(diff, TimeUnit.MILLISECONDS);
 		
-		return diffrence;
+		return (int) diffrence;
 		
 	}
 	
 	public double calculoPaquete(long dias, double pago, int cantidadPersonas ) {
 		double descuento; 
 		double valorTotal;
-		Precio precio = new Precio();
+		Common precio = new Common();
 		//los porcentajes de los descuentos de los paquetes deberían ser parámetros constantes 
 		
 		if(dias>precio.estadiaCorta&&dias<precio.estadiaLarga) {
@@ -127,6 +130,8 @@ public class Reserva {
 		return valorTotal;
 		
 	}
+	
+
 
 	@Override
 	public String toString() {

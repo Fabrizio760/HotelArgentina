@@ -15,7 +15,7 @@ public class HotelArgentina {
 	
 		LeerArchivo leer = new LeerArchivo();
 		leer.leerReservas();
-	
+		leer.leerHabitaciones();
 	
 	}
 
