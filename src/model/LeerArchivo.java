@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class LeerArchivo {
 
@@ -49,7 +50,9 @@ public class LeerArchivo {
 			Reserva reserva = new Reserva();
 			while ((linea = br.readLine()) != null) {
 				List<String> listaReservas = new ArrayList<>();
-				listaReservas.addAll(parseLine(linea));
+
+				listaReserva(linea);
+			
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -67,31 +70,49 @@ public class LeerArchivo {
 		}
 	}
 
-	public List<String> parseLine(String linea) throws LineaInvalidaException {
-		List<String> output = null;
-		this.columns = Arrays.asList(new String[] { "id", "origen", "cantidadHuespedes", "checkIn", "checkOut",
-				"amenities", "pagoAbonado" });
-		String[] lineaArr = linea.split(this.separator);
-//		if (lineaArr.length == this.columns.size()) { // cantidad de lineas
-//			//int nroColFiltro = this.columns.indexOf(this.filterColumn);
-//			// coincida el filtro
-//			output = new ArrayList<>();
-//			for (int i = 0; i < this.columns.size(); i++) {
-//				String column = this.columns.get(i);
-//
-//				String value = lineaArr[i];
-//				output.add(value);
-//			}
-//
-//		} else {
-//			throw new LineaInvalidaException(linea);
-//		}
+	/*
+	 * public List<String> parseLine(String linea) throws LineaInvalidaException {
+	 * List<String> output = null; this.columns = Arrays.asList(new String[] { "id",
+	 * "origen", "cantidadHuespedes", "checkIn", "checkOut", "amenities",
+	 * "pagoAbonado" }); String[] lineaArr = linea.split(this.separator); // if
+	 * (lineaArr.length == this.columns.size()) { // cantidad de lineas // //int
+	 * nroColFiltro = this.columns.indexOf(this.filterColumn); // // coincida el
+	 * filtro // output = new ArrayList<>(); // for (int i = 0; i <
+	 * this.columns.size(); i++) { // String column = this.columns.get(i); // //
+	 * String value = lineaArr[i]; // output.add(value); // } // // } else { //
+	 * throw new LineaInvalidaException(linea); // }
+	 * 
+	 * for(int i=0; i<7;i++) { System.out.println(lineaArr[i]); }
+	 * 
+	 * return output; }
+	 */
 
-		for(int i=0; i<7;i++) {
-		System.out.println(lineaArr[i]);
-		}
+	public String[] listaReserva(String linea) {
 		
-		return output;
+		//crear una lista de las reservas 
+		List<Reserva> reservas = new ArrayList<>();
+		//System.out.println(linea);
+		 
+		String[] parts = linea.split(";");  
+		
+		System.out.println(Arrays.asList(parts));
+		System.out.println(Arrays.asList(parts).size());
+	for (int i=0; i<4; i++) {
+		
+		
+		reservas.add(new Reserva(Integer.parseInt(parts[0]), parts[1],Integer.parseInt(parts[2]), parts[3],parts[4],Integer.parseInt(parts[5]), Double.parseDouble(parts[6])));
+		//System.out.println(reservas.get(i));
+	
 	}
-
+		
+for (int i=0; i<reservas.size(); i++) {
+		
+		//System.out.println(reservas.get(i));
+	
+	}
+		
+	
+		return parts;
+		 
+	}
 }

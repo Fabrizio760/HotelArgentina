@@ -1,22 +1,42 @@
 package model;
 
 import java.text.ParseException;
+
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class Reserva {
-	public static double ticket= 700;
 	private int idReserva;
 	private String origen; 
 	private int cantidadHuespedes; 
-	private Date fechaEntrada; 
-	private Date fechaSalida; 
+	private String fechaEntrada; 
+	private String fechaSalida; 
 	private Date estadia;
 	private Amenities amenities; 
 	private double pagoAbonado;
 	
+	public Reserva (String reserva) {
+		
+	} 
+	
+	public Reserva() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Reserva(int id, String origen, int cantidadHuespedes, String checkIn, String checkOut, int amenities, double pagoAbonado) {
+		this.idReserva= id; 
+		this.origen= origen; 
+		this.cantidadHuespedes=cantidadHuespedes; 
+		this.fechaEntrada = checkIn; 
+		this.fechaSalida = checkOut;
+		//amenities= this.amenities.values();
+	    this.pagoAbonado= pagoAbonado;
+		
+	}
+
 	public int getIdReserva() {
 		return idReserva;
 	}
@@ -35,16 +55,16 @@ public class Reserva {
 	public void setCantidadHuespedes(int cantidadHuespedes) {
 		this.cantidadHuespedes = cantidadHuespedes;
 	}
-	public Date getFechaEntrada() {
+	public String getFechaEntrada() {
 		return fechaEntrada;
 	}
-	public void setFechaEntrada(Date fechaEntrada) {
+	public void setFechaEntrada(String fechaEntrada) {
 		this.fechaEntrada = fechaEntrada;
 	}
-	public Date getFechaSalida() {
+	public String getFechaSalida() {
 		return fechaSalida;
 	}
-	public void setFechaSalida(Date fechaSalida) {
+	public void setFechaSalida(String fechaSalida) {
 		this.fechaSalida = fechaSalida;
 	}
 	public Amenities getAmenities() {
@@ -74,6 +94,10 @@ public class Reserva {
 				diff = formato.parse(fechaSalida).getTime() - formato.parse(fechaEntrada).getTime();
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
+				//Ejemplo
+				//Generar Archivo de errores por error en la fecha en el cálculo de la estadía
+				//se recomienda subir la excepción para capturar las excepciones
+				//
 				e.printStackTrace();
 			}
 	        TimeUnit time = TimeUnit.DAYS; 
@@ -86,13 +110,15 @@ public class Reserva {
 	public double calculoPaquete(long dias, double pago, int cantidadPersonas ) {
 		double descuento; 
 		double valorTotal;
-				
-		if(dias>5&&dias<10) {
-			descuento = pago*0.15; 
+		Precio precio = new Precio();
+		//los porcentajes de los descuentos de los paquetes deberían ser parámetros constantes 
+		
+		if(dias>precio.estadiaCorta&&dias<precio.estadiaLarga) {
+			descuento = pago*precio.paqueteBroce; 
 			valorTotal= pago-descuento;
-		} else if(dias>=10){
-			descuento =pago*0.15; 
-			valorTotal = pago - descuento - (cantidadPersonas*ticket)*0.10;
+		} else if(dias>=precio.estadiaLarga){
+			descuento =pago*precio.paqueteGold; 
+			valorTotal = pago - descuento - (cantidadPersonas*precio.ticket)*precio.descuentoTicket;
 			
 		}else {
 			valorTotal=pago;
@@ -101,4 +127,16 @@ public class Reserva {
 		return valorTotal;
 		
 	}
+
+	@Override
+	public String toString() {
+		return "Reserva [idReserva=" + idReserva + ", origen=" + origen + ", cantidadHuespedes=" + cantidadHuespedes
+				+ ", fechaEntrada=" + fechaEntrada + ", fechaSalida=" + fechaSalida + ", estadia=" + estadia
+				+ ", amenities=" + amenities + ", pagoAbonado=" + pagoAbonado + "]";
+	}
+
+
+	
+	
+	
 }
