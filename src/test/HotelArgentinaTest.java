@@ -24,7 +24,6 @@ public class HotelArgentinaTest {
 
 		double resultado = reserva.calculoPaquete(6, 100, 4);
 
-		System.out.print(resultado);
 		assertEquals(85.0, resultado, 0.0);
 
 	}

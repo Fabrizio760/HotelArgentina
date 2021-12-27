@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class Habitacion {
 
@@ -8,7 +9,7 @@ public class Habitacion {
 	private int numero;
 	private TipoHabitacion tamanio; //Enum TipoHbaitacion 
 	private int cantidadHuespedes; 
-	private String amenities; //Enum Amenities
+	private List<Amenities> amenities; //Enum Amenities
 	private boolean disponibilidad;
 	private double precio; 
 	
@@ -16,14 +17,14 @@ public class Habitacion {
 		
 	}
 	
-	public Habitacion(int idHabitacion, int numero, int tamanio, int cantidadHuespedes, String [] amenities,
+	public Habitacion(int idHabitacion, int numero, int tamanio, int cantidadHuespedes, List<Amenities> itemsAmenities,
 			boolean disponibilidad, double precio) {
 		super();
 		this.idHabitacion = idHabitacion;
 		this.numero = numero;
 		this.tamanio = Common.asignarTipo(cantidadHuespedes);
 		this.cantidadHuespedes = cantidadHuespedes;
-		this.amenities = listaAmenities(amenities);
+		this.amenities = itemsAmenities;
 		this.disponibilidad = disponibilidad;
 		this.precio = precio;
 	}
@@ -52,10 +53,10 @@ public class Habitacion {
 	public void setCantidadHuespedes(int cantidadHuespedes) {
 		this.cantidadHuespedes = cantidadHuespedes;
 	}
-	public String getAmenities() {
+	public List<Amenities> getAmenities() {
 		return amenities;
 	}
-	public void setAmenities(String amenities) {
+	public void setAmenities(List<Amenities> amenities) {
 		this.amenities = amenities;
 	}
 	public boolean isDisponibilidad() {
@@ -75,14 +76,9 @@ public class Habitacion {
 	
 	public String listaAmenities(String [] amenities) {
 		String listaamenities = null;
-	
-	
-		
 		for (String i:amenities) {
 		listaamenities=Common.asignarAmenities(Integer.parseInt(i))+",";
-	
 		}
-		
 		return listaamenities;		
 	}
 	
@@ -92,7 +88,6 @@ public class Habitacion {
 				+ ", cantidadHuespedes=" + cantidadHuespedes + ", amenities=" + amenities + ", disponibilidad="
 				+ disponibilidad + ", precio=" + precio + "]";
 	}
-
 	
 
 	

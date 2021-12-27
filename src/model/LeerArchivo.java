@@ -32,7 +32,7 @@ public class LeerArchivo {
 //		}
 //	}
 
-	public void leerReservas() {
+	public void leerReservas(String _path) {
 
 		File archivo = null;
 		FileReader fr = null;
@@ -41,7 +41,7 @@ public class LeerArchivo {
 		try {
 			// Apertura del fichero y creacion de BufferedReader para poder
 			// hacer una lectura comoda (disponer del metodo readLine()).
-			archivo = new File("./resources/reserva.csv");
+			archivo =  new File(_path);
 			fr = new FileReader(archivo);
 			br = new BufferedReader(fr);
 
@@ -50,7 +50,8 @@ public class LeerArchivo {
 			Reserva reserva = new Reserva();
 			while ((linea = br.readLine()) != null) {
 				List<String> listaReservas = new ArrayList<>();
-
+				
+			
 				listaReserva(linea);
 
 			}
@@ -63,13 +64,14 @@ public class LeerArchivo {
 			try {
 				if (null != fr) {
 					fr.close();
+					br.close();
 				}
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
 		}
 	}
-	
+
 	public List<Reserva> listaReserva(String linea) {
 
 		List<Reserva> reservas = new ArrayList<>();
@@ -87,8 +89,8 @@ public class LeerArchivo {
 		return reservas;
 
 	}
-	
-	public void leerHabitaciones() {
+
+	public void leerHabitaciones(String _path) {
 
 		File archivo = null;
 		FileReader fr = null;
@@ -97,18 +99,18 @@ public class LeerArchivo {
 		try {
 			// Apertura del fichero y creacion de BufferedReader para poder
 			// hacer una lectura comoda (disponer del metodo readLine()).
-			archivo = new File("./resources/habitacion.csv");
+			archivo =  new File(_path);
 			fr = new FileReader(archivo);
 			br = new BufferedReader(fr);
 
 			// Lectura del fichero
 			String linea;
 			Habitacion habitacion = new Habitacion();
-			int i=0;
+			int i = 0;
 			while ((linea = br.readLine()) != null) {
 				List<String> listaHabitaciones = new ArrayList<>();
-				if(i>0) {
-				listaHabitaciones(linea);
+				if (i > 0) {
+					listaHabitaciones(linea);
 				}
 				i++;
 			}
@@ -121,30 +123,31 @@ public class LeerArchivo {
 			try {
 				if (null != fr) {
 					fr.close();
+					br.close();
 				}
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
 		}
 	}
-	
-	
+
 	public List<Habitacion> listaHabitaciones(String linea) {
 
 		List<Habitacion> habitaciones = new ArrayList<>();
+		List<Amenities> itemsAmenities = null;
 		String[] parts = linea.split(";");
 		String[] aminitieslist = parts[4].split(",");
-		habitaciones.add(new Habitacion(Integer.parseInt(parts[0]),Integer.parseInt(parts[1]), Integer.parseInt(parts[2]), Integer.parseInt(parts[3]),
-				aminitieslist, Boolean.parseBoolean(parts[5]),Double.parseDouble(parts[6])));
-
+		itemsAmenities = Common.listaAmenities(aminitieslist);
+		habitaciones.add(new Habitacion(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]),
+				Integer.parseInt(parts[2]), Integer.parseInt(parts[3]), itemsAmenities,
+				Boolean.parseBoolean(parts[5]), Double.parseDouble(parts[6])));
 		for (int i = 0; i < habitaciones.size(); i++) {
 
 			System.out.println(habitaciones.get(i));
 
 		}
 
-		
 		return habitaciones;
-		
+
 	}
 }
