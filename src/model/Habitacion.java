@@ -75,9 +75,14 @@ public class Habitacion {
 	
 	public String listaAmenities(String [] amenities) {
 		String listaamenities = null;
+	
+	
+		
 		for (String i:amenities) {
 		listaamenities=Common.asignarAmenities(Integer.parseInt(i))+",";
+	
 		}
+		
 		return listaamenities;		
 	}
 	
