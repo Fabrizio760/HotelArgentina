@@ -65,8 +65,6 @@ public class Habitacion {
 	public void setDisponibilidad(boolean disponibilidad) {
 		this.disponibilidad = disponibilidad;
 	}
-	
-	
 	public double getPrecio() {
 		return precio;
 	}

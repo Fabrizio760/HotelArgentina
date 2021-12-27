@@ -55,7 +55,6 @@ public class Common {
 			amenities = asignarAmenities(Integer.parseInt(item));
 			listaAmenities.add(amenities);
 		}
-		
 		return listaAmenities;
 	}
 }

@@ -142,9 +142,7 @@ public class LeerArchivo {
 		for (int i = 0; i < habitaciones.size(); i++) {
 
 			System.out.println(habitaciones.get(i));
-
 		}
-
 		return habitaciones;
 
 	}
