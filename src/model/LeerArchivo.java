@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class LeerArchivo {
 
@@ -63,13 +62,14 @@ public class LeerArchivo {
 			try {
 				if (null != fr) {
 					fr.close();
+					br.close();
 				}
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
 		}
 	}
-	
+
 	public List<Reserva> listaReserva(String linea) {
 
 		List<Reserva> reservas = new ArrayList<>();
@@ -87,7 +87,7 @@ public class LeerArchivo {
 		return reservas;
 
 	}
-	
+
 	public void leerHabitaciones() {
 
 		File archivo = null;
@@ -104,11 +104,11 @@ public class LeerArchivo {
 			// Lectura del fichero
 			String linea;
 			Habitacion habitacion = new Habitacion();
-			int i=0;
+			int i = 0;
 			while ((linea = br.readLine()) != null) {
 				List<String> listaHabitaciones = new ArrayList<>();
-				if(i>0) {
-				listaHabitaciones(linea);
+				if (i > 0) {
+					listaHabitaciones(linea);
 				}
 				i++;
 			}
@@ -121,30 +121,31 @@ public class LeerArchivo {
 			try {
 				if (null != fr) {
 					fr.close();
+					br.close();
 				}
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
 		}
 	}
-	
-	
+
 	public List<Habitacion> listaHabitaciones(String linea) {
 
 		List<Habitacion> habitaciones = new ArrayList<>();
+		List<Amenities> itemsAmenities = null;
 		String[] parts = linea.split(";");
 		String[] aminitieslist = parts[4].split(",");
-		habitaciones.add(new Habitacion(Integer.parseInt(parts[0]),Integer.parseInt(parts[1]), Integer.parseInt(parts[2]), Integer.parseInt(parts[3]),
-				aminitieslist, Boolean.parseBoolean(parts[5]),Double.parseDouble(parts[6])));
-
+		itemsAmenities = Common.listaAmenities(aminitieslist);
+		habitaciones.add(new Habitacion(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]),
+				Integer.parseInt(parts[2]), Integer.parseInt(parts[3]), itemsAmenities,
+				Boolean.parseBoolean(parts[5]), Double.parseDouble(parts[6])));
 		for (int i = 0; i < habitaciones.size(); i++) {
 
 			System.out.println(habitaciones.get(i));
 
 		}
 
-		
 		return habitaciones;
-		
+
 	}
 }
